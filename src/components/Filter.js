@@ -4,7 +4,7 @@ const Filter = (props) => {
     props.handleFilter({
       value: ev.target.value,
       key: "name",
-    }); //Esto viene de App, hacer el cableado
+    });
   };
   return (
     <form className="form">
@@ -14,7 +14,7 @@ const Filter = (props) => {
         type="text"
         name="filter"
         id=""
-        value={props.filterName} //Esto viene del estado de App, ojo.Hay que hacerlo controlado
+        value={props.filteredCharacter}
         onChange={handleChange}
       ></input>
     </form>

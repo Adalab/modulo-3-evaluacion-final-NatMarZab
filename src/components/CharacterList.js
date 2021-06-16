@@ -4,13 +4,11 @@ import CharacterCard from "./CharacterCard";
 const CharacterList = (props) => {
   const charactersInfo = props.dataList.map((character) => {
     return (
-      <>
-        <li key={character.id} className="character-list">
-          <CharacterCard character={character} />
-        </li>
-      </>
+      <li key={character.id} className="character-list">
+        <CharacterCard character={character} />
+      </li>
     );
   });
-  return charactersInfo;
+  return <ul>{charactersInfo}</ul>;
 };
 export default CharacterList;

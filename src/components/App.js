@@ -8,22 +8,25 @@ import getDataFromApi from "../services/Api";
 
 const App = () => {
   const [characters, setCharacters] = useState([]);
-  const [filteredCharacter, setFilteredCharacter] = useState("");
+  const [filteredName, setFilteredName] = useState("");
 
   useEffect(() => {
-    if (characters.length === "") {
+    if (characters.length === 0) {
       getDataFromApi().then((charactersData) => {
-        setCharacters(charactersData.results);
-        console.log(characters);
+        setCharacters(charactersData);
       });
     }
   }, []);
-
+  //handles
   const handleEvent = (data) => {
     if (data.key === "name") {
-      setFilteredCharacter(data.value);
+      return setFilteredName(data.value);
     }
   };
+  //render
+  const filteredCharacters = characters.filter((character) => {
+    character.name.toLowerCase().includes(filteredName.toLowerCase());
+  });
 
   return (
     <>
@@ -32,8 +35,8 @@ const App = () => {
       </header>
       <main>
         <section>
-          <Filter handleFilter={handleEvent} filterName={filteredCharacter} />
-          <CharacterList dataList={characters} />
+          <Filter handleFilter={handleEvent} filteredName={filteredName} />
+          <CharacterList filteredCharacters={filteredCharacters} />
         </section>
       </main>
     </>
