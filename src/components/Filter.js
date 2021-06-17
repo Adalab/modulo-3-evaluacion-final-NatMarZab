@@ -1,4 +1,5 @@
 import React from "react";
+import "../stylesheet/layout/_filter.scss";
 const Filter = (props) => {
   const handleChange = (ev) => {
     props.handleFilter({
@@ -6,15 +7,18 @@ const Filter = (props) => {
       key: "name",
     });
   };
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+  };
   return (
-    <form className="form">
-      <label></label>
+    <form className="form" onSubmit={handleSubmit}>
+      <label className="labelInput"></label>
       <input
         className="input-text"
         type="text"
         name="filter"
         id=""
-        value={props.filteredCharacter}
+        value={props.filteredName}
         onChange={handleChange}
       ></input>
     </form>

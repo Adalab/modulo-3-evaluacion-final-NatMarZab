@@ -3,6 +3,8 @@ import "../stylesheet/App.scss";
 import React, { useState, useEffect } from "react";
 import CharacterList from "./CharacterList";
 import Filter from "./Filter";
+import CharacterDetail from "./CharacterDetail";
+import { Switch, Route } from "react-router-dom/cjs/react-router-dom.min";
 
 import getDataFromApi from "../services/Api";
 
@@ -25,8 +27,22 @@ const App = () => {
   };
   //render
   const filteredCharacters = characters.filter((character) => {
-    character.name.toLowerCase().includes(filteredName.toLowerCase());
+    return character.name.toLowerCase().includes(filteredName.toLowerCase());
   });
+
+  const renderCharacterDetail = (routerProps) => {
+    const routeCharacterId = routerProps.match.params.characterId;
+    const characterFound = characters.find(
+      (character) => character.id === parseInt(routeCharacterId)
+    );
+    if (characterFound) {
+      return (
+        <CharacterDetail specificCharacter={characterFound}></CharacterDetail>
+      );
+    } else {
+      return <p>The character you are looking for does not exist</p>;
+    }
+  };
 
   return (
     <>
@@ -34,10 +50,21 @@ const App = () => {
         <h1 className="title">Rick and Morty</h1>
       </header>
       <main>
-        <section>
-          <Filter handleFilter={handleEvent} filteredName={filteredName} />
-          <CharacterList filteredCharacters={filteredCharacters} />
-        </section>
+        <Switch>
+          <Route exact path="/">
+            <section>
+              <Filter handleFilter={handleEvent} filteredName={filteredName} />
+              <CharacterList
+                dataList={filteredCharacters}
+                filteredName={filteredName}
+              />
+            </section>
+          </Route>
+          <Route
+            path="/character/:characterId"
+            render={renderCharacterDetail}
+          ></Route>
+        </Switch>
       </main>
     </>
   );
