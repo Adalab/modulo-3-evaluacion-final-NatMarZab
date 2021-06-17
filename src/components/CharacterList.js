@@ -1,5 +1,6 @@
 import React from "react";
 import CharacterCard from "./CharacterCard";
+import "../stylesheet/layout/_characterList.scss";
 
 const CharacterList = (props) => {
   const charactersInfo = props.dataList.map((character) => {
@@ -12,7 +13,7 @@ const CharacterList = (props) => {
   return props.dataList.length === 0 ? (
     <p>There is not character that matches the word {props.filteredName}</p>
   ) : (
-    <ul>{charactersInfo}</ul>
+    <ul className="characterList">{charactersInfo}</ul>
   );
 };
 export default CharacterList;

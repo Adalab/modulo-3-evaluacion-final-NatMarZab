@@ -52,7 +52,7 @@ const App = () => {
       <main>
         <Switch>
           <Route exact path="/">
-            <section>
+            <section className="main">
               <Filter handleFilter={handleEvent} filteredName={filteredName} />
               <CharacterList
                 dataList={filteredCharacters}
