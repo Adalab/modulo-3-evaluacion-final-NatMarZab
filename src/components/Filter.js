@@ -1,5 +1,7 @@
 import React from "react";
 import "../stylesheet/layout/_filter.scss";
+import FilterGender from "./FilterGender";
+
 const Filter = (props) => {
   const handleChange = (ev) => {
     props.handleFilter({
@@ -21,6 +23,10 @@ const Filter = (props) => {
         value={props.filteredName}
         onChange={handleChange}
       ></input>
+      <FilterGender
+        filterGender={props.filterGender}
+        handleFilter={props.handleFilter}
+      />
     </form>
   );
 };

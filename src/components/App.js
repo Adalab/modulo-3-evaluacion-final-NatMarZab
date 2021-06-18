@@ -3,6 +3,7 @@ import "../stylesheet/App.scss";
 import React, { useState, useEffect } from "react";
 import CharacterList from "./CharacterList";
 import Filter from "./Filter";
+
 import CharacterDetail from "./CharacterDetail";
 import { Switch, Route } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -11,6 +12,7 @@ import getDataFromApi from "../services/Api";
 const App = () => {
   const [characters, setCharacters] = useState([]);
   const [filteredName, setFilteredName] = useState("");
+  const [filteredGender, setFilterGender] = useState("");
 
   useEffect(() => {
     if (characters.length === 0) {
@@ -23,12 +25,18 @@ const App = () => {
   const handleEvent = (data) => {
     if (data.key === "name") {
       return setFilteredName(data.value);
+    } else if (data.key === "gender") {
+      return setFilterGender(data.value);
     }
   };
   //render
-  const filteredCharacters = characters.filter((character) => {
-    return character.name.toLowerCase().includes(filteredName.toLowerCase());
-  });
+  const filteredCharacters = characters
+    .filter((character) => {
+      return character.name.toLowerCase().includes(filteredName.toLowerCase());
+    })
+    .filter((character) => {
+      return filteredGender === "" ? true : character.gender === filteredGender;
+    });
 
   const renderCharacterDetail = (routerProps) => {
     const routeCharacterId = routerProps.match.params.characterId;
@@ -52,8 +60,12 @@ const App = () => {
       <main>
         <Switch>
           <Route exact path="/">
-            <section className="main">
-              <Filter handleFilter={handleEvent} filteredName={filteredName} />
+            <section className="section">
+              <Filter
+                handleFilter={handleEvent}
+                filteredName={filteredName}
+                filteredGender={filteredGender}
+              />
               <CharacterList
                 dataList={filteredCharacters}
                 filteredName={filteredName}
