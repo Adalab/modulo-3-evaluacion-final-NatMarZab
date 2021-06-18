@@ -18,7 +18,7 @@ const FilterGender = (props) => {
         value={props.filteredGender}
         onChange={handleChange}
       >
-        <option>Selecciona</option>
+        <option>Select</option>
         <option value="Female">Female</option>
         <option value="Male">Male</option>
       </select>

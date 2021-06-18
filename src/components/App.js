@@ -1,4 +1,5 @@
 import "../stylesheet/App.scss";
+import logo from "../images/rickAndMortyLogo.png";
 
 import React, { useState, useEffect } from "react";
 import CharacterList from "./CharacterList";
@@ -54,8 +55,8 @@ const App = () => {
 
   return (
     <>
-      <header>
-        <h1 className="title">Rick and Morty</h1>
+      <header className="title">
+        <img src={logo} alt="Rick and Morty" className="logo" />
       </header>
       <main>
         <Switch>
